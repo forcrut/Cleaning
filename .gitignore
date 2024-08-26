@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+.cache
+.pytest_cache/
+*.log
+*.sqlite3
+__pypackages__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# PyCharm
+.idea/
+
+# Bot
+Bot/token.txt
+
+# Schedule
+Schedule/gs_account.json
