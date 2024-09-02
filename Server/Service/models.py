@@ -102,7 +102,7 @@ class StaffUser(CustomUser):
 		verbose_name_plural = "Персонал"
 
 class UserProfile(models.Model):
-	id = models.PositiveIntegerField(primary_key=True, editable=True, verbose_name='tg id')
+	id = models.BigIntegerField(primary_key=True, editable=True, verbose_name='tg id')
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
 	phone = models.CharField(max_length=15, blank=True, null=True, verbose_name='Мобильный')
 	address = models.CharField(max_length=100, validators=[MinLengthValidator(10)], verbose_name='Адрес')
@@ -116,7 +116,7 @@ class UserProfile(models.Model):
 
 # TODO оборудование
 class StaffStorage(models.Model):
-	id = models.PositiveIntegerField(primary_key=True, editable=True, verbose_name='tg id')
+	id = models.BigIntegerField(primary_key=True, editable=True, verbose_name='tg id')
 	staff = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='storage', verbose_name='Сотрудник')
 # 	stuff = models.OneToOneField('Stuff', on_delete=models.SET_NULL, related_name='staffes', verbose_name='Товар')
 # 	quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Количество')
@@ -165,6 +165,7 @@ class Order(models.Model):
 	cleaning_date = models.DateField(verbose_name='Дата')
 	cleaning_start_time = models.TimeField(verbose_name='Время начала')
 	cleaning_end_time = models.TimeField(verbose_name='Время окончания')
+	address = models.CharField(max_length=100, validators=[MinLengthValidator(10)], verbose_name='Адрес')
 	info = models.CharField(max_length=70, verbose_name='Задачи')
 	price = models.FloatField(validators=[MinValueValidator(1.0)], verbose_name='Цена')
 	status = models.SmallIntegerField(choices=ORDER_STATUSES, default=1, verbose_name='Статус')

@@ -38,9 +38,8 @@ class WorkDayInline(admin.TabularInline):
 			def __init__(self, *args, **kwargs):
 				super().__init__(*args, **kwargs)
 				for form, day in zip(self.forms, list(DAY_CHOICES.keys())):
-					if not form.instance.pk:
-						form.fields['day'].disabled = True
-						form.initial['day'] = day
+					form.fields['day'].disabled = True
+					form.initial['day'] = day
 		return CustomWorkDayFormSet
 
 class UserProfileInline(admin.TabularInline):
@@ -188,7 +187,7 @@ class WorkDayAdmin(admin.ModelAdmin, Permissions):
 # Order
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin, Permissions):
-	list_display = ('user', 'cleaning_date', 'info', 'price', 'status', 'staff', 'order_time')
+	list_display = ('pk', 'user', 'cleaning_date', 'info', 'price', 'status', 'staff', 'order_time')
 	list_filter = ('cleaning_date', 'price', 'status')
 	search_fields = ('user', 'staff')
 	ordering = ('user', 'cleaning_date', 'price', 'status')
@@ -203,8 +202,3 @@ class OrderAdmin(admin.ModelAdmin, Permissions):
 
 	def has_add_permission(self, request, obj=None) -> bool:
 		return False
-
-# def save_model(self, request, obj, form, change):
-# 		if 'password' in form.changed_data:
-# 			obj.set_password(form.cleaned_data['password'])
-# 		super().save_model(request, obj, form, change)

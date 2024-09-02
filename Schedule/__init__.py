@@ -1,4 +1,1 @@
-from main import ScheduleController
-
-
-controller = ScheduleController()
+from .main import ScheduleController

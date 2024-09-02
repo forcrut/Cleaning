@@ -1,5 +1,4 @@
 import gspread
-from gspread_formatting import set_data_validation_for_cell_range
 from gspread.utils import rowcol_to_a1
 from settings import SCHEDULE_URL, ORDER_STATUSES, SCHEDULE_COLUMNS_MAPPING, SCHEDULE_DB_COLUMNS
 import warnings

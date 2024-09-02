@@ -17,3 +17,4 @@ rsa==4.9
 sqlparse==0.5.1
 typing_extensions==4.12.2
 urllib3==2.2.2
+YooMoney==0.1.1

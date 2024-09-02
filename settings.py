@@ -10,25 +10,12 @@ SCHEDULE_COLUMNS_MAPPING = {sheet_column: db_column for sheet_column, db_column 
 # stuff
 STUFF_TYPES = {'одноразовый': 0, 'неодноразовый': 1}
 
+# formats
+DATE_FORMAT = '%d-%m-%Y'
+TIME_FORMAT = '%H:%M'
+
 # order
 ORDER_STATUSES = {'неизвестно': 0, 'оформлен': 1, 'оплачен': 2, 'завершен': 3}
-ORDER_SEQUENCE = {
-	0: ['rooms', 'Комнат', 'int'],
-	1: ['bathrooms', 'Санузел', 'int'],
-	2: ['cleaning_date', 'Дата уборки', 'date'],
-	3: ['cleaning_start_time', 'Время уборки', 'time'],
-	4: ['kitchen', 'Кухня', 'bool'],
-	5: ['hall', 'Коридор', 'bool'],
-	6: ['street', 'Улица', 'char'],
-	7: ['house', 'Дом', 'char'],
-	8: ['section', 'Корпус', 'int'],
-	9: ['apartment', 'Квартира', 'int'],
-	10: ['last_name', 'Фамилия', 'char'],
-	11: ['first_name', 'Имя', 'char'],
-	12: ['surname', 'Отчество', 'char'],
-	13: ['phone', 'Контактный телефон', 'char'],
-	14: ['email', 'Почта', 'char']
-}
 
 # order's prices
 BASE_PRICE = 31
@@ -65,15 +52,76 @@ DJANGO_BASE_DIR = BASE_DIR / 'Server'
 DJANGO_MANAGE_FILE = DJANGO_BASE_DIR / 'manage.py'
 BOT_MAIN_FILE = BASE_DIR / 'Bot' / 'main.py'
 
-# bot
+# bot's token
 BOT_TOKEN = '5303666004:AAHfkjYN_TBqGmL4FxgFXbHXGFz3_g75Caw'
-default_info = dict.fromkeys([
-	'message_id',
+
+# group's id
+GROUP_ID = -1002177036365
+
+# order's data
+data_fields = [
 	'rooms', 'bathrooms',
-	'cleaning_date', 'cleaning_start_time', 
+	'cleaning_date', 'cleaning_start_time',
 	'kitchen', 'hall',
 	'street', 'house', 'section', 'apartment',
 	'last_name', 'first_name', 'surname',
 	'phone', 'email'
-])
-# message_id для того, чтобы потом можно было удалить это сообщение по истечению какого-то времени и удалить из order_states
+]
+data_field_type = {k: v for k, v in zip(data_fields, [
+	'int', 'int',
+	'date', 'time',
+	'bool', 'bool',
+	'str', 'str', 'int', 'int',
+	'str', 'str', 'str',
+	'str', 'str'
+])}
+data_next_field = {k: v for k, v in zip(data_fields[:-1], data_fields[1:])}
+data_prev_field = {k: v for k, v in zip(data_fields[1:], data_fields[:-1])}
+data_default = dict.fromkeys(data_fields)
+data_humanize = {k: v for k, v in zip(data_fields, [
+	'Комнат', 'Санузлов',
+	'Дата уборки', 'Время уборки',
+	'Кухня', 'Коридор',
+	'Улица', 'Дом', 'Корпус', 'Квартира',
+	'Фамилия', 'Имя', 'Отчество',
+	'Мобильный', 'Почта'
+])}
+
+# информация об услугах
+services = """
+	<b>Наши услуги:</b>
+	<code>
+		<b>Уборка комнаты:</b>
+		1.
+		2.
+	</code>
+	<code>
+		<b>Уборка санузла:</b>
+		1.
+		2.
+		Примечание:.
+	</code>
+	<code>
+		<b>Уборка кухни:</b>
+		1.
+		2.
+	</code>
+	<code>
+		<b>Уборка коридора:</b>
+		1.
+		2.
+	</code>
+"""
+
+# информация о нас
+about = """
+	<b>Наша организация:</b>
+	<code>
+		<b>Название:</b> Cleaning.
+	</code>
+	<b>Контактные данные:</b>
+	<code>
+		<b>Телефон:</b> +375*********.
+		<b>Email:</b> *******@gmail.com.
+	</code>
+"""
